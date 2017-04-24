@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Container, Input, List} from "semantic-ui-react";
+import Dropzone from 'react-dropzone'
 import "./App.css";
 
 class App extends Component {
@@ -28,6 +29,20 @@ class App extends Component {
                         )
                     }
                 </List>
+
+                <Dropzone onDrop={this.onDrop}>
+                    {({isDragActive, isDragReject, acceptedFiles, rejectedFiles}) => {
+                        if (isDragActive) {
+                            return "This file is authorized";
+                        }
+                        if (isDragReject) {
+                            return "This file is not authorized";
+                        }
+                        return acceptedFiles.length || rejectedFiles.length
+                            ? `Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`
+                            : "Try dropping some files";
+                    }}
+                </Dropzone>
             </Container>
         );
     }
@@ -50,6 +65,18 @@ class App extends Component {
                     }))
                 })
         }
+    }
+
+    onDrop = acceptedFiles => {
+        const formData = new FormData();
+        acceptedFiles.forEach(file => {
+            formData.append(file.name, file);
+        });
+        fetch('http://localhost:8080/api/import/', {
+            method: 'POST',
+            body: formData
+        }).then(res => res.json())
+            .catch(err => console.log(err));
     }
 }
 
