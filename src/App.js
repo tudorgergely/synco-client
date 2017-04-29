@@ -2,12 +2,18 @@ import React, {Component} from "react";
 import {Container, Input, List} from "semantic-ui-react";
 import Dropzone from 'react-dropzone'
 import "./App.css";
-
+let folderSelect;
 class App extends Component {
     constructor() {
         super();
         this.state = {
             items: []
+        }
+    }
+
+    componentDidMount() {
+        if (folderSelect) {
+            folderSelect.webkitdirectory = true
         }
     }
 
@@ -43,6 +49,12 @@ class App extends Component {
                             : "Try dropping some files";
                     }}
                 </Dropzone>
+
+                Source folder
+                <input type="file" ref={ref => folderSelect = ref} onChange={this.sourceFolderChange}/>
+
+                Watch folder
+                <input type="file" ref={ref => folderSelect = ref} onChange={this.sourceFolderChange}/>
             </Container>
         );
     }
@@ -77,6 +89,10 @@ class App extends Component {
             body: formData
         }).then(res => res.json())
             .catch(err => console.log(err));
+    }
+
+    sourceFolderChange = e => {
+        console.log(e);
     }
 }
 
