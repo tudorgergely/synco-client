@@ -5,17 +5,18 @@ SYNCO
 
 ## How to install
 
-> install nodejs
+### Prerequisites
+ - [node.js](https://nodejs.org/en/)
+ 
+### Installation
 
-> $ git clone https://github.com/tudorgergely/synco-client.git
-
-> $ cd synco-client
-
-> $ npm install 
-
-> $ npm start
-
-> $ npm run electron
+```
+$ git clone https://github.com/tudorgergely/synco-client.git
+$ cd synco-client
+$ npm install 
+$ npm start
+$ npm run electron
+```
 
 
 
