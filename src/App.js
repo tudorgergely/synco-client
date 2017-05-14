@@ -1,13 +1,157 @@
 import React, {Component} from "react";
-import {Container, Input, List} from "semantic-ui-react";
+import {Container, Dropdown, Icon, Input, List, Menu, Dimmer, Segment} from "semantic-ui-react";
 import Dropzone from 'react-dropzone'
 import "./App.css";
+import SearchBar from "./components/SearchBar";
+import FilesList from "./components/FilesList";
+import {NavBar} from "./containers/NavBar";
+import {RecentActivity} from "./containers/RecentActivity";
 let folderSelect;
+
 class App extends Component {
     constructor() {
         super();
         this.state = {
-            items: []
+            items: [
+                {
+                    name: 'Today',
+                    items: [
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive', 'dropbox'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive', 'dropbox'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive', 'dropbox'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive', 'dropbox'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        }
+                    ]
+                },
+                {
+                    name: 'Yesterday',
+                    items: [
+                        {
+                            date: new Date(),
+                            type: 'search',
+                            locations: ['hdd', 'drive', 'dropbox'],
+                            content: 'fisier.zip'
+                        }
+                    ]
+                },
+
+                {
+                    name: 'Last month',
+                    items: [
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        }
+                    ]
+                },
+                {
+                    name: 'Last year',
+                    items: [
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        },
+
+                        {
+                            date: new Date(),
+                            type: 'upload',
+                            locations: ['drive'],
+                            content: 'Nume_fisier_5.png'
+                        },
+                        {
+                            date: new Date(),
+                            type: 'download',
+                            locations: ['dropbox'],
+                            content: 'fisier.zip'
+                        }
+                    ]
+                },
+            ]
         }
     }
 
@@ -19,42 +163,10 @@ class App extends Component {
 
     render() {
         return (
-            <Container>
-                <Input icon='search' placeholder='Search...' fluid onChange={this.onChange}/>
+            <Container fluid>
+                <NavBar/>
 
-                <List divided relaxed>
-                    {
-                        this.state.items.map(({id, fileMetadata}, i) =>
-                            <List.Item key={i}>
-                                <List.Content>
-                                    <List.Header>{fileMetadata.name}</List.Header>
-                                    <List.Description>{fileMetadata.size} kb</List.Description>
-                                    <a href={"http://localhost:8080/api/export/" + id}>Download</a>
-                                </List.Content>
-                            </List.Item>
-                        )
-                    }
-                </List>
-
-                <Dropzone onDrop={this.onDrop}>
-                    {({isDragActive, isDragReject, acceptedFiles, rejectedFiles}) => {
-                        if (isDragActive) {
-                            return "This file is authorized";
-                        }
-                        if (isDragReject) {
-                            return "This file is not authorized";
-                        }
-                        return acceptedFiles.length || rejectedFiles.length
-                            ? `Accepted ${acceptedFiles.length}, rejected ${rejectedFiles.length} files`
-                            : "Try dropping some files";
-                    }}
-                </Dropzone>
-
-                Source folder
-                <input type="file" ref={ref => folderSelect = ref} onChange={this.sourceFolderChange}/>
-
-                Watch folder
-                <input type="file" ref={ref => folderSelect = ref} onChange={this.sourceFolderChange}/>
+                <RecentActivity sections={this.state.items}/>
             </Container>
         );
     }
