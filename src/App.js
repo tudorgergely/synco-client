@@ -1,9 +1,6 @@
 import React, {Component} from "react";
-import {Container, Dropdown, Icon, Input, List, Menu, Dimmer, Segment} from "semantic-ui-react";
-import Dropzone from 'react-dropzone'
+import {Container} from "semantic-ui-react";
 import "./App.css";
-import SearchBar from "./components/SearchBar";
-import FilesList from "./components/FilesList";
 import {NavBar} from "./containers/NavBar";
 import {RecentActivity} from "./containers/RecentActivity";
 let folderSelect;
