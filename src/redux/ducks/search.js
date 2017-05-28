@@ -1,12 +1,13 @@
 const PREFIX = '@synco/timeline';
 
-const SEARCH = `${PREFIX}/SEARCH`;
+export const SEARCH = `${PREFIX}/SEARCH`;
+export const SEARCH_FINISHED = `${PREFIX}/SEARCH_FINISHED`;
 
-const OPEN = `${PREFIX}/OPEN`;
-const CLOSE = `${PREFIX}/CLOSE`;
+export const OPEN = `${PREFIX}/OPEN`;
+export const CLOSE = `${PREFIX}/CLOSE`;
 
-const LOAD_RECENT_START = `${PREFIX}/LOAD_RECENT_START`;
-const LOAD_RECENT_FINISH = `${PREFIX}/LOAD_RECENT_FINISH`;
+export const LOAD_RECENT_START = `${PREFIX}/LOAD_RECENT_START`;
+export const LOAD_RECENT_FINISH = `${PREFIX}/LOAD_RECENT_FINISH`;
 
 const defaultState = {
     term: null,
@@ -20,6 +21,11 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 term: action.term
+            };
+        case SEARCH_FINISHED:
+            return {
+                ...state,
+                results: action.results
             };
         case LOAD_RECENT_START:
             return {
@@ -46,6 +52,13 @@ export const search = (term) => {
     return {
         type: SEARCH,
         term
+    };
+};
+
+export const searchFinished = (results) => {
+    return {
+        type: SEARCH_FINISHED,
+        results
     };
 };
 

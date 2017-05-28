@@ -3,7 +3,6 @@ import {Container} from "semantic-ui-react";
 import "./App.css";
 import {NavBar} from "./containers/NavBar";
 import {RecentActivity} from "./containers/RecentActivity";
-let folderSelect;
 
 class App extends Component {
     constructor() {
@@ -152,12 +151,6 @@ class App extends Component {
         }
     }
 
-    componentDidMount() {
-        if (folderSelect) {
-            folderSelect.webkitdirectory = true
-        }
-    }
-
     render() {
         return (
             <Container fluid>
@@ -166,42 +159,6 @@ class App extends Component {
                 <RecentActivity sections={this.state.items}/>
             </Container>
         );
-    }
-
-    onChange = (e, data) => {
-        const text = data.value;
-        if (text.length > 3) {
-            fetch('http://localhost:8080/api/search/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({q: text})
-            })
-                .then(res => res.json())
-                .then(res => {
-                    this.setState(() => ({
-                        items: res
-                    }))
-                })
-        }
-    }
-
-    onDrop = acceptedFiles => {
-        const formData = new FormData();
-        acceptedFiles.forEach(file => {
-            formData.append(file.name, file);
-        });
-        fetch('http://localhost:8080/api/import/', {
-            method: 'POST',
-            body: formData
-        }).then(res => res.json())
-            .catch(err => console.log(err));
-    }
-
-    sourceFolderChange = e => {
-        console.log(e);
     }
 }
 

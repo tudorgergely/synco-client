@@ -26,7 +26,6 @@ export class NavBar extends React.Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-
             </Menu.Item>
         </Menu>
     }

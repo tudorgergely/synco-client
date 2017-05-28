@@ -1,7 +1,7 @@
 const PREFIX = '@synco/timeline';
 
-const LOAD_START = `${PREFIX}/LOAD_START`;
-const LOAD_FINISH = `${PREFIX}/LOAD_FINISH`;
+export const LOAD_START = `${PREFIX}/LOAD_START`;
+export const LOAD_FINISH = `${PREFIX}/LOAD_FINISH`;
 
 const defaultState = {
     timeline: [],
