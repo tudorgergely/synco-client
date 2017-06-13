@@ -1,6 +1,6 @@
 import api from "../api";
-import {LOAD_FINISH, LOAD_START, timelineLoaded} from "../ducks/timeline";
-import {takeLatest, call, put} from "redux-saga/effects";
+import {LOAD_START, timelineLoaded} from "../ducks/timeline";
+import {call, put, takeLatest} from "redux-saga/effects";
 
 function* fetchTimeline({page}) {
     const timeline = yield call(api.fetchTimeline, page);

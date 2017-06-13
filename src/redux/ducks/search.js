@@ -1,7 +1,6 @@
 const PREFIX = '@synco/timeline';
 
 export const SEARCH = `${PREFIX}/SEARCH`;
-export const SEARCH_FINISHED = `${PREFIX}/SEARCH_FINISHED`;
 
 export const OPEN = `${PREFIX}/OPEN`;
 export const CLOSE = `${PREFIX}/CLOSE`;
@@ -11,8 +10,8 @@ export const LOAD_RECENT_FINISH = `${PREFIX}/LOAD_RECENT_FINISH`;
 
 const defaultState = {
     term: null,
-    recentSearches: [],
-    open: false
+    recentSearches: [1, 2, 3],
+    open: false,
 };
 
 export default function reducer(state = defaultState, action) {
@@ -21,11 +20,6 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 term: action.term
-            };
-        case SEARCH_FINISHED:
-            return {
-                ...state,
-                results: action.results
             };
         case LOAD_RECENT_START:
             return {
@@ -48,17 +42,22 @@ export default function reducer(state = defaultState, action) {
     }
 }
 
+export const open = () => {
+    return {
+        type: OPEN
+    }
+};
+
+export const close = () => {
+    return {
+        type: CLOSE
+    };
+};
+
 export const search = (term) => {
     return {
         type: SEARCH,
         term
-    };
-};
-
-export const searchFinished = (results) => {
-    return {
-        type: SEARCH_FINISHED,
-        results
     };
 };
 

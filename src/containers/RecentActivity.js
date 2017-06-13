@@ -1,12 +1,28 @@
 import React from "react";
-import {Container, Divider, Grid, Header, List, Segment} from "semantic-ui-react";
+import {Grid, Header, List} from "semantic-ui-react";
 import {RecentActivitySection} from "../components/RecentActivitySection";
 import "./RecentActivity.css";
+import {connect} from "react-redux";
+import {loadTimeline} from "../redux/ducks/timeline";
 
-export class RecentActivity extends React.Component {
-    static propTypes = {
-        sections: React.PropTypes.array.isRequired
+function mapStateToProps(state) {
+    return {
+        sections: state.timeline.timeline
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        loadTimeline() {
+            dispatch(loadTimeline());
+        }
     };
+}
+
+class RecentActivity extends React.Component {
+    componentDidMount() {
+        this.props.loadTimeline();
+    }
 
     render() {
         return <Grid>
@@ -39,3 +55,5 @@ export class RecentActivity extends React.Component {
         return null;
     };
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentActivity);

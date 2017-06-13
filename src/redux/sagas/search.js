@@ -1,11 +1,14 @@
 import api from "../api";
-import {call, takeLatest, all} from "redux-saga/effects";
-import {LOAD_RECENT_START, recentLoaded, SEARCH, searchFinished} from "../ducks/search";
+import {call, takeLatest, all, put} from "redux-saga/effects";
+import {LOAD_RECENT_START, recentLoaded, SEARCH} from "../ducks/search";
+import {goToResults} from "../ducks/home";
+import {searchFinished} from "../ducks/files";
 
 function* search({text}) {
     const results = yield call(api.search, text);
 
     yield put(searchFinished(results));
+    yield put(goToResults());
 }
 
 function* loadRecents() {

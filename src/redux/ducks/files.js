@@ -5,8 +5,11 @@ const UPLOAD_FINISH = `${PREFIX}/UPLOAD_FINISH`;
 
 export const DOWNLOAD = `${PREFIX}/DOWNLOAD`;
 
+export const SEARCH_FINISHED = `${PREFIX}/SEARCH_FINISHED`;
+
 const defaultState = {
-    uploadInProgress: null
+    uploadInProgress: null,
+    results: []
 };
 
 export default function reducer(state = defaultState, action) {
@@ -20,6 +23,11 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 uploadInProgress: null
+            };
+        case SEARCH_FINISHED:
+            return {
+                ...state,
+                results: action.results
             };
         case DOWNLOAD:
         default:
@@ -44,5 +52,12 @@ export const downloadFile = (file) => {
     return {
         type: DOWNLOAD,
         file
+    };
+};
+
+export const searchFinished = (results) => {
+    return {
+        type: SEARCH_FINISHED,
+        results
     };
 };

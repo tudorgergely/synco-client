@@ -1,5 +1,5 @@
-import React from 'react';
-import {List, Segment, Divider} from 'semantic-ui-react';
+import React from "react";
+import {List, Segment} from "semantic-ui-react";
 import RecentActivityItem from "./RecentActivityItem";
 
 export class RecentActivitySection extends React.Component {

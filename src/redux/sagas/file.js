@@ -1,5 +1,5 @@
 import api from '../api';
-import {call, put} from "redux-saga/effects";
+import {call, put, all, takeLatest} from "redux-saga/effects";
 import {DOWNLOAD, UPLOAD, uploadFinish} from "../ducks/files";
 
 function* uploadFile({files}) {
