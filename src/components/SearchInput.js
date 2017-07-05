@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Icon, Input, Segment, List} from "semantic-ui-react";
+import React from "react";
+import PropTypes from "prop-types";
+import {Button, Icon, Input, List, Popup, Segment} from "semantic-ui-react";
 import Moment from "react-moment";
 
 export default class SearchInput extends React.Component {
@@ -15,6 +15,7 @@ export default class SearchInput extends React.Component {
     };
 
     render() {
+        console.log(this.props.searchText);
         return (
             <span>
                 {this.renderSearchInput(this.props.searchText, this.searchInputChange,
@@ -36,25 +37,31 @@ export default class SearchInput extends React.Component {
 
     renderSearchInput(searchText, onSearchTextChange, onSearchInputFocus, onSearchInputBlur) {
         return <Input className='icon' placeholder='Search...' fluid style={{padding: 0}} type="search">
-            <input value={searchText}
-                   onChange={onSearchTextChange}
-                   onFocus={onSearchInputFocus}
-                   onBlur={onSearchInputBlur}
-                   type="search"/>
+            <Popup
+                trigger={<input value={searchText}
+                                onChange={onSearchTextChange}
+                                onFocus={onSearchInputFocus}
+                                onBlur={() => setTimeout(onSearchInputBlur, 250)}
+                                type="search"/>}
+                content='You need to input at least 4 characters'
+                on='focus'
+            />
             <Icon name='search'/>
         </Input>;
     }
 
     renderRecentSearches(searches, open) {
-        console.log(searches);
         if (searches.length > 0 && open) {
             return <div style={{position: 'absolute', marginTop: 0, width: '100%', left: 0, padding: '0 14px'}}>
                 <Segment>
+
                     <List divided relaxed>
                         {
                             searches.map((s, i) => <List.Item key={i}>
                                 <List.Content>
-                                    <List.Header as='a'>{s.content}</List.Header>
+                                    <List.Header><Button onClick={() => {
+                                        this.props.onSearchTextChange(s.content);
+                                    }}>{s.content}</Button></List.Header>
                                     <List.Description as='a'> <Moment fromNow ago>{s.date}</Moment> ago
                                     </List.Description>
                                 </List.Content>

@@ -167,9 +167,11 @@ export default {
     },
 
     uploadFiles(files) {
-        return f.post('/upload', {
-            files
+        const data = new FormData();
+        files.forEach((file, i) => {
+            data.set(i, file);
         });
+        return f.post('/api/import/', data);
     },
 
     downloadFile(file) {
@@ -178,6 +180,19 @@ export default {
                 console.log(res);
                 return res.data
             });
+    },
+
+    getBackupPath() {
+        return f.get('/settings/backupPath').then(r => r.data);
+    },
+    setBackupPath(path) {
+        return f.post('/settings/backupPath', {path}).then(r => r.data);
+    },
+    getSyncPath() {
+        return f.get('/settings/syncPath').then(r => r.data);
+    },
+    setSyncPath(path) {
+        return f.post('/settings/syncPath', {path}).then(r => r.data);
     },
 
     googleAuth() {

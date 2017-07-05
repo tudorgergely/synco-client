@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import SearchInput from "../components/SearchInput";
 import {connect} from "react-redux";
-import {open, close, search, loadRecent} from '../redux/ducks/search';
+import {close, loadRecent, open, search} from "../redux/ducks/search";
 import {goToTimeline} from "../redux/ducks/home";
 
 function mapStateToProps(state) {
-    console.log(state);
-    const {open, recentSearches} = state.search;
+    const {open, recentSearches, term} = state.search;
     return {
         open,
         recentSearches,
+        term
     };
 }
 
@@ -26,6 +26,7 @@ function mapDispatchToProps(dispatch) {
             dispatch(search(term))
         },
         searchCleared() {
+            dispatch(search(''))
             dispatch(goToTimeline());
         },
         loadRecents() {
@@ -36,7 +37,7 @@ function mapDispatchToProps(dispatch) {
 
 class Search extends React.Component {
     componentWillReceiveProps(newProps) {
-        if (newProps.open) {
+        if (newProps.open !== this.props.open) {
             this.props.loadRecents();
         }
     }
@@ -45,6 +46,7 @@ class Search extends React.Component {
         return (
             <span>
                 <SearchInput
+                    searchText={this.props.term}
                     open={this.props.open}
                     recentSearches={this.props.recentSearches}
                     onSearchInputFocus={this.props.openRecents}

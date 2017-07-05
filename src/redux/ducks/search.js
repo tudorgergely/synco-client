@@ -9,7 +9,7 @@ export const LOAD_RECENT_START = `${PREFIX}/LOAD_RECENT_START`;
 export const LOAD_RECENT_FINISH = `${PREFIX}/LOAD_RECENT_FINISH`;
 
 const defaultState = {
-    term: null,
+    term: '',
     recentSearches: [1, 2, 3],
     open: false,
 };

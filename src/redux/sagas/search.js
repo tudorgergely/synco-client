@@ -6,10 +6,12 @@ import {searchFinished} from "../ducks/files";
 
 function* search(p) {
     try {
-        const results = yield call(api.search, p.term);
+        if (p.term.length > 3) {
+            const results = yield call(api.search, p.term);
 
-        yield put(searchFinished(results));
-        yield put(goToResults());
+            yield put(searchFinished(results));
+            yield put(goToResults());
+        }
     } catch (e) {
         console.error(e);
     }

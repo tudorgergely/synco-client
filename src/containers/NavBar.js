@@ -3,6 +3,7 @@ import {Menu, Input, Icon, Button, Grid} from 'semantic-ui-react';
 import './NavBar.css';
 import SearchInput from "../components/SearchInput";
 import Search from "./Search";
+import {Settings} from "./Settings";
 
 export class NavBar extends React.Component {
     render() {
@@ -21,9 +22,7 @@ export class NavBar extends React.Component {
                                 <Button basic icon>
                                     <Icon name="upload"/>
                                 </Button>
-                                <Button basic icon>
-                                    <Icon name="configure"/>
-                                </Button>
+                                <Settings/>
                             </Button.Group>
                         </Grid.Column>
                     </Grid.Row>
