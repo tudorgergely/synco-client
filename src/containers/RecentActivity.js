@@ -33,14 +33,18 @@ class RecentActivity extends React.Component {
                     <List relaxed className="RecentActivity">
                         {
                             this.props.sections.map((section, i) => {
-                                return (
-                                    <List.Item key={i} className="RecentActivity__section">
-                                        <Header as='h5' className="RecentActivity__section__name">
-                                            {section.name}
-                                        </Header>
-                                        <RecentActivitySection items={section.items}/>
-                                    </List.Item>
-                                )
+                                if (section.items.length > 0) {
+                                    return (
+                                        <List.Item key={i} className="RecentActivity__section">
+                                            <Header as='h5' className="RecentActivity__section__name">
+                                                {section.name}
+                                            </Header>
+                                            <RecentActivitySection items={section.items}/>
+                                        </List.Item>
+                                    )
+                                } else {
+                                    return null;
+                                }
                             })
                         }
                     </List>

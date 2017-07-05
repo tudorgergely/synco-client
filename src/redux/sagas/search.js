@@ -4,11 +4,16 @@ import {LOAD_RECENT_START, recentLoaded, SEARCH} from "../ducks/search";
 import {goToResults} from "../ducks/home";
 import {searchFinished} from "../ducks/files";
 
-function* search({text}) {
-    const results = yield call(api.search, text);
+function* search(p) {
+    try {
+        const results = yield call(api.search, p.term);
 
-    yield put(searchFinished(results));
-    yield put(goToResults());
+        yield put(searchFinished(results));
+        yield put(goToResults());
+    } catch (e) {
+        console.error(e);
+    }
+
 }
 
 function* loadRecents() {

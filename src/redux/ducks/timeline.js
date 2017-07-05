@@ -35,6 +35,6 @@ export const loadTimeline = () => {
 export const timelineLoaded = (timeline) => {
     return {
         type: LOAD_FINISH,
-        timeline
+        timeline: timeline.sections
     };
 };

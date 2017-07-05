@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Icon, Input, Segment, List} from "semantic-ui-react";
+import Moment from "react-moment";
 
 export default class SearchInput extends React.Component {
     static propTypes = {
@@ -45,6 +46,7 @@ export default class SearchInput extends React.Component {
     }
 
     renderRecentSearches(searches, open) {
+        console.log(searches);
         if (searches.length > 0 && open) {
             return <div style={{position: 'absolute', marginTop: 0, width: '100%', left: 0, padding: '0 14px'}}>
                 <Segment>
@@ -52,8 +54,9 @@ export default class SearchInput extends React.Component {
                         {
                             searches.map((s, i) => <List.Item key={i}>
                                 <List.Content>
-                                    <List.Header as='a'>{s}</List.Header>
-                                    <List.Description as='a'>Updated 10 mins ago</List.Description>
+                                    <List.Header as='a'>{s.content}</List.Header>
+                                    <List.Description as='a'> <Moment fromNow ago>{s.date}</Moment> ago
+                                    </List.Description>
                                 </List.Content>
                             </List.Item>)
                         }

@@ -23,8 +23,7 @@ export default function reducer(state = defaultState, action) {
             };
         case LOAD_RECENT_START:
             return {
-                ...state,
-                recentSearches: action.recentSearches
+                ...state
             };
         case OPEN:
             return {
@@ -37,6 +36,10 @@ export default function reducer(state = defaultState, action) {
                 open: false
             };
         case LOAD_RECENT_FINISH:
+            return {
+                ...state,
+                recentSearches: action.recentSearches
+            };
         default:
             return state;
     }
